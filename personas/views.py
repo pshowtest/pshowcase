@@ -203,8 +203,6 @@ def index(request):
     return render(request, 'personas/inicio.html')
 
 
-
-
 def detalle_proyecto2(request, id_proyecto):  
     recepcion_formulario(request)  
     detalle_segmentos(request, id_proyecto)
@@ -795,22 +793,3 @@ def informar_problema(request):
 
     return render(request, 'personas/enviar_correo.html')
  
-
-def detalle_segmentos(request, id_proyecto):
-    proyecto_aux2 = Proyecto.objects.get(id=id_proyecto)
-    lista_segmentos = list()
-    tipos_segmentos = Tipo_segmento.objects.all()
-    # obtener todos los segmentos en los cuales esta ese proyecto
-    segmentos = Segmento.objects.filter(proyecto=proyecto_aux2)
-    for s in segmentos:
-        segm_aux = s
-        lista_segmentos.append(s)
-    
-    context = {
-        'lista_segmentos':lista_segmentos,
-        'tipos_segmentos':tipos_segmentos,
-        'proyecto_aux2':proyecto_aux2,    
-    }
-    #retornar el tipo de segmento, el segmento , y el proyecto
-    return context
-

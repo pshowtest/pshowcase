@@ -52,7 +52,7 @@
                 Log in
             </div> 
             <div class=" panel-body">
-                <form method="POST" class="post-form">{% csrf_token %}       
+                <form method="POST" class="post-form"  autocomplete="off">{% csrf_token %}       
                     <input type="hidden" name="modelo"  value="sesion" class="form-control" id="formGroupExampleInput" placeholder="usuario">   
                     <div class="col-12">            
                         <div class="form-group">                   
@@ -287,7 +287,7 @@
 
              <div class="modal-body">
                   <!-- formulario editar categoria-->
-                  <form method="POST" class="post-form">{% csrf_token %}
+                  <form method="POST" class="post-form"  autocomplete="off" >{% csrf_token %}
                     <input type="hidden" id="categoria_id" name="categoria_id" value="{{c.id}}">
                     <input type="hidden" id="operacion" name="operacion" value="editar">
                     <input type="hidden" id="modelo" name="modelo" value="categoria">
@@ -295,7 +295,7 @@
                     <button type='submit'>Save</button>                                                           
                 </form>
                 <!-- formulario para borrar la categoria-->
-                <form method="POST" class="post-form">{% csrf_token %}
+                <form method="POST" class="post-form"  autocomplete="off" >{% csrf_token %}
                    <input type="hidden" id="categoria_id" name="categoria_id" value="{{c.id}}">
                    <input type="hidden" id="operacion" name="operacion" value="borrar">
                    <input type="hidden" id="modelo" name="modelo" value="categoria">
@@ -329,7 +329,7 @@
 
             <div class="modal-body">
                  <!-- formulario editar categoria-->
-                 <form method="POST" class="post-form">{% csrf_token %}
+                 <form method="POST" class="post-form"  autocomplete="off" >{% csrf_token %}
                     <input type="hidden" id="id_usuario" name="id_usuario" value="{{usuario_conectado.id}}">
                    <input type="hidden" id="operacion" name="operacion" value="crear">
                    <input type="hidden" id="modelo" name="modelo" value="categoria">
@@ -366,7 +366,7 @@
              <div class="modal-body">
 
                  <!-- formulario para editar herramienta-->
-                 <form method="POST" class="post-form">{% csrf_token %}
+                 <form method="POST" class="post-form"  autocomplete="off" >{% csrf_token %}
                      <input type="hidden" id="herramienta_id" name="herramienta_id" value="{{h.id}}">
                      <input type="hidden" id="operacion" name="operacion" value="editar">
                      <input type="hidden" id="modelo" name="modelo" value="herramienta">
@@ -374,7 +374,7 @@
                      <button type='submit'>Save</button>                                                           
                  </form>
                  <!-- formulario para borrar la herramienta-->
-                 <form method="POST" class="post-form">{% csrf_token %}
+                 <form method="POST" class="post-form"  autocomplete="off">{% csrf_token %}
                     <input type="hidden" id="herramienta_id" name="herramienta_id" value="{{h.id}}">
                     <input type="hidden" id="operacion" name="operacion" value="borrar">
                     <input type="hidden" id="modelo" name="modelo" value="herramienta">
@@ -408,7 +408,7 @@
 
             <div class="modal-body">
                  <!-- formulario editar categoria-->
-                 <form method="POST" class="post-form">{% csrf_token %}                    
+                 <form method="POST" class="post-form"  autocomplete="off">{% csrf_token %}                    
                    <input type="hidden" id="operacion" name="operacion" value="crear">
                    <input type="hidden" id="modelo" name="modelo" value="herramienta">
                    
@@ -446,7 +446,7 @@
             </div>
 
             <div class="modal-body">
-                <form method="POST" class="post-form">{% csrf_token %}
+                <form method="POST" class="post-form"  autocomplete="off" >{% csrf_token %}
                     <input type="hidden" id="id_perfil" name="id_perfil" value="{{perfil_usuario.id}}">
                     <input type="hidden" id="modelo" name="modelo" value="perfil">
                     {{form_edit_perfil.as_p}}    
@@ -475,7 +475,7 @@
             </div>
 
             <div class="modal-body">
-                <form method="POST" class="post-form">{% csrf_token %}
+                <form method="POST" class="post-form"  autocomplete="off" >{% csrf_token %}
                     <input type="hidden" id="modelo" name="modelo" value="proyecto">
                     <input type="hidden" id="operacion" name="operacion" value="crear">
                     <input type="hidden" id="id_usuario" name="id_usuario" value="{{usuario_conectado.id}}">

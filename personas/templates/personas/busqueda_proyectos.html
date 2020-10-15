@@ -10,7 +10,7 @@
     </div>
     
     
-    <form action="{% url 'personas:resultado_busqueda_proyectos'  %}" class="row justify-content-md-center" method="POST" class="post-form">{% csrf_token %}
+    <form action="{% url 'personas:resultado_busqueda_proyectos'  %}" class="row justify-content-md-center" method="POST" class="post-form"  autocomplete="off">{% csrf_token %}
         <div class="col-md-6">
         <input class="form-control my-4 mr-sm-2" id="texto_busqueda" name="texto_busqueda" type="search" placeholder="Escribe aqui para buscar" aria-label="Search" required>
         <input type="hidden" id="operacion" name="operacion" value="busqueda">        
