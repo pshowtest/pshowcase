@@ -1,0 +1,29 @@
+{% extends 'personas/inicio.html' %}
+
+{% block contenido%}
+
+    <!-- seccion de busqueda-->
+    <div class="row justify-content-md-center">
+        <div class="col-auto">
+            <h2>¿Buscas algun tema interesante?</h2>
+        </div>
+    </div>
+    
+    
+    <form action="{% url 'personas:resultado_busqueda_proyectos'  %}" class="row justify-content-md-center" method="POST" class="post-form">{% csrf_token %}
+        <div class="col-md-6">
+        <input class="form-control my-4 mr-sm-2" id="texto_busqueda" name="texto_busqueda" type="search" placeholder="Escribe aqui para buscar" aria-label="Search" required>
+        <input type="hidden" id="operacion" name="operacion" value="busqueda">        
+        </div>
+        <div class="col-md-2">
+        <button class="btn btn-outline-success my-4 mr-sm-2 btn-primary " type="submit">Buscar</button>
+        </div>
+    </form>
+
+
+    {% block listado_proyectos %}
+    {% endblock %}
+  
+  
+  {% endblock %}
+  

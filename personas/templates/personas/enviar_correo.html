@@ -1,0 +1,51 @@
+{% extends 'personas/inicio.html' %}
+
+{% block contenido %}
+   <!-- seccion de titulo-->
+   <div class="row justify-content-md-center">
+    <div class="col-auto">
+        <h2>Informar algun error o alguna sugerencia </h2>
+    </div>
+  </div>
+
+  <form method="POST" class="post-form">{% csrf_token %}
+    <div class="form-group ">
+        <input name="operacion" type="hidden" value="enviar_correo">
+
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+                <label for="exampleInputEmail1">Correo</label>
+                <input name="correo" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingresa tu correo" value="{{usuario_conectado.correo}}" readonly   >
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="col-lg-6 col-sm-12">
+                <label for="exampleInputEmail1">Asunto</label>
+                <input name="asunto" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="titulo del asunto">
+                
+            </div>
+              <!--
+              <div class="col-lg-6 col-sm-12">
+                <label for="exampleInputEmail1">Contraseña</label>
+                <input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="**************">
+                <small id="emailHelp" class="form-text text-muted">Ingresa la contraseña de tu provedor de correo, no la de pshowcase.</small>
+              </div>-->
+        </div>
+                 
+    <br><br>
+
+        <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Describe el problema</label>
+                        <textarea name="descripcion" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                    </div>
+                </div>
+        </div>            
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+  </form>
+
+
+
+{% endblock %}

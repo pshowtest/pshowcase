@@ -1,0 +1,99 @@
+{% extends 'personas/inicio.html' %}
+
+
+
+{% block contenido %}
+<form method="POST" class="post-form">{% csrf_token %}
+
+
+    <div class="row panel justify-content-md-center">
+     
+            <div class="col-auto">
+                <h3>Datos de usuario </h3>
+            </div>                              
+ 
+    </div>
+
+
+
+
+  <div class="row ">  
+                     
+          <div class="col-md-6 form-group">
+            <label for="exampleInputEmail1"></label>
+            <input type="text" class="form-control" name="nombre1" id="nombre1" aria-describedby="emailHelp" placeholder="Primer nombre">      
+          </div>
+
+          <div class="col-md-6 form-group">
+            <label for="exampleInputEmail1"></label>
+            <input type="text" class="form-control" name="nombre2" id="nombre2" aria-describedby="emailHelp" placeholder="Segundo nombre">      
+            <small class="text-success">opcional</small>
+          </div>
+          
+          <div class="col-md-6 form-group">
+            <label for="exampleInputEmail1"></label>
+            <input type="text" class="form-control" name="apellido1" id="apellido1" aria-describedby="emailHelp" placeholder="Primer apellido">      
+          </div>
+
+          <div class="col-md-6 form-group">
+            <label for="exampleInputEmail1"></label>
+            <input type="text" class="form-control" name="apellido2"  id="apellido2" aria-describedby="emailHelp" placeholder="Segundo apellido">      
+            <small class="text-success">opcional</small>
+          </div>
+
+          <div class="col-md-6 form-group">
+            <label for="exampleInputPassword1"></label>
+            <input type="email" class="form-control" name="correo" id="correo" placeholder="email">
+          </div>
+
+          <div class="col-md-4 form-group">
+            <label for="exampleInputPassword1"></label>
+            <input type="text" class="form-control" name="rut" id="rut" placeholder="rut">
+            <small class="text-dark">sin puntos ni digito verificador</small>
+          </div>
+
+          <div class="col-md-2 form-group">
+            <label for="exampleInputPassword1"></label>
+            <input type="text" class="form-control" name="dv" id="dv" placeholder="dv">
+          </div>
+       
+                    
+
+          <div class="col-6 form-group">
+            <label for="exampleInputPassword1">Fecha Nacimiento</label>
+            <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="password">
+            <small>opcional</small>
+          </div>
+
+                           
+  </div>
+
+      <div class="row panel justify-content-md-center">        
+        <div class="col-auto">
+            <h3>Credenciales</h3>
+        </div>                              
+      </div>
+
+      <div class="row">
+
+            <div class="col-md-6 form-group">
+              <label for="exampleInputPassword1">Usuario</label>
+              <input type="text" class="form-control" name="user_name" id="user_name" placeholder="user name">
+            </div>
+
+            
+            <div class="col-md-6 form-group">
+              <label for="exampleInputPassword1">Contraseña</label>
+              <input type="password" class="form-control" name="password" id="password" placeholder="password">
+            </div>
+
+      </div>
+
+
+
+
+      <button type="submit" class="btn btn-primary">Confirmar</button>
+
+</form>
+
+{% endblock %}

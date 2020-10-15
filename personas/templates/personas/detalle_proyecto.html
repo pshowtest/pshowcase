@@ -1,0 +1,1086 @@
+{% extends 'personas/inicio.html' %}
+
+
+
+
+
+{% block contenido %}
+
+
+
+
+
+
+<div class="row "> 
+  <div class="card col-12">
+    <div class="card-header row justify-content-md-center">
+      <div class="col-auto">
+        <img src="https://img.icons8.com/plasticine/100/000000/folder-invoices.png"/>
+      </div>
+
+      <div class="col-auto">
+        <h2>{{proyecto_aux.nombre_proyecto}}</h2>
+        ID:{{proyecto_aux.id}}
+      </div>
+    </div>
+
+    <div class="card-body">
+      <!-- navegacion-->
+      <div class="row justify-content-md-center">                      
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+              
+          <li class="nav-item" role="presentation">
+            <a class="nav-link show active " id="proyecto-tab" data-toggle="tab" href="#proyecto" role="tab" aria-controls="proyecto" aria-selected="true">General</a>
+          </li>             
+
+          <li class="nav-item" role="presentation">
+            <a class="nav-link " id="segmentos-tab" data-toggle="tab" href="#segmentos" role="tab" aria-controls="segmentos" aria-selected="false">Cuerpo</a>
+          </li>               
+  
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="colaboraciones-tab" data-toggle="tab" href="#colaboraciones" role="tab" aria-controls="colaboraciones" aria-selected="false">Colaboraciones</a>
+          </li>
+   
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="herramientas-tab" data-toggle="tab" href="#herramientas" role="tab" aria-controls="herramientas" aria-selected="false">Herramientas</a>
+          </li>            
+
+        </ul>      
+      </div>
+
+       <!-- contenidos -->
+       <br>
+      <div class=" tab-content " id="myTabContent">
+                
+
+          <!-- contenido de pestaña de proyecto-->
+          <div class="tab-pane active show fade" id="proyecto" role="tabpanel" aria-labelledby="proyecto-tab">
+
+                <div class="row justify-content-md-center">
+                   <div class="col-auto">
+                    {{proyecto_aux.reseña}} <br>
+                    creado en <span class="text-info "><strong><em>{{proyecto_aux.fecha_creacion}}</em></strong> <br></span> 
+                    <br>
+                   </div>
+                </div>
+
+                <div class="row justify-content-md-center">
+                  {% for lc in listado_colaboradores %}
+                  {% if lc.usuario == usuario_conectado %}
+                    <!-- revisar tipo de permiso para propietario-->
+                    {% if lc.tipo_permiso.id|stringformat:"s" == '1' %}
+                      
+                        <div class="col-1">
+                          <button type="button" class="btn btn-default " aria-label="Left Align" data-toggle="modal" data-target="#exampleModalEditarProyecto" >
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                          </button>
+                        </div>
+                          
+                        <div class="col-1">
+                          <button type="button" class="btn btn-default " aria-label="Left Align" data-toggle="modal" data-target="#exampleModalBorrarProyecto" >
+                            <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                          </button>
+                        </div>                                                                                                             
+                        
+                    {% endif %}                     
+
+                  {% endif %}
+                {% endfor %}
+
+              </div>
+          </div>
+                
+
+          <!-- contenido de pestaña de segmentos-->
+          <div class="tab-pane fade" id="segmentos" role="tabpanel" aria-labelledby="segmentos-tab">
+                  
+          
+            <div class="row">
+              <div class="col-md-4">
+                  <!-- List group -->
+                  <div class="list-group" id="myList" role="tablist">
+                    <a class="list-group-item list-group-item-action active " data-toggle="list" href="#home" role="tab">Segmentos</a>                    
+                    {% for ls in lista_segmentos %}
+                      {% for t in tipos_segmentos %}
+                        {% if ls.tipo_segmento == t %}
+                          <a class="list-group-item list-group-item-action " data-toggle="list" href="#segmento{{ls}}" role="tab">{{ls.numero_segmento}} - {{ls.titular}} ({{t.nombre_segmento}})</a>
+                        {% endif %}
+                      {% endfor %}
+                    {% endfor %}                
+                  </div>
+                  <!--boton de agregar segmento-->
+                  {% for lc in listado_colaboradores %}
+                  {% if lc.usuario == usuario_conectado %}
+                    <!-- revisar tipo de permiso para propietario-->
+                    {% if lc.tipo_permiso.id|stringformat:"s" == '1' %}
+                      <button type="button" class="btn btn-default col-lg-12 col-sm-12" aria-label="Left Align" data-toggle="modal" data-target="#ModalSegmentoCrear">
+                          <span class="glyphicon glyphicon-plus" aria-hidden="true"> Segmento</span>
+                      </button>
+                                                                                                                                                             
+                    {% endif %}                       
+                  {% endif %}
+                {% endfor %}
+
+
+
+                
+              </div>
+             
+            
+              <div class="col-md-8 ">
+                                      
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="home" role="tabpanel"> Selecciona un segmento del inidice</div>                    
+                    {% for ls in lista_segmentos %}
+                        <div class="tab-pane" id="segmento{{ls}}" role="tabpanel">
+                            <div class="">
+                                <div class="row justify-content-md-center card-header">
+                                  <div class="col-12">
+                                    <strong>{{ls.titular}}</strong>
+                                  </div>
+                                    
+                                </div>
+                                <div class="card-body">
+                                  
+                                   <!--tipo de segmento texto id==1 , var1  es la descripcion-->
+                                    {% if ls.tipo_segmento.id|stringformat:"s" == '1' %}
+                                      {{ls.var1}}
+                                      <br>
+                                    {% endif %}
+
+
+                                     <!--tipo de segmento video id==2 , var1  es la descripcion y var2 es el link-->
+                                     {% if ls.tipo_segmento.id|stringformat:"s" == '2' %}
+                                     <div class="row">
+                                        <div class="col-12">
+                                          {{ls.var1}}
+                                          
+                                        </div>
+                                        <br>
+                                     </div>
+
+                                     <div class="row">
+                                      <div class="col-12">
+                                        <iframe width="400" height="225"  src="https://www.youtube.com/embed/{{ls.var2}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                                        </iframe>                                   
+                                        
+                                      </div>
+                                   </div>
+                                   {% endif %}
+                                     
+                                    <!--tipo de segmento codigo id==3 , var1  es la descripcion y var2 es el link-->
+                                    {% if ls.tipo_segmento.id|stringformat:"s" == '3' %}
+                                     <div class="row">
+                                        <div class="col-12">
+                                          {{ls.var1}}
+                                        
+                                        </div>
+                                        <br>
+                                     </div>
+
+                                     <div class="row">
+                                      <div class="col-12">                                        
+                                        <a href="{{ls.var2}}"> link al codigo</a>                                                                      
+                                      </div>
+                                   </div> 
+                                   {% endif %}
+
+
+                                    <!--tipo de segmento archivo id==5 , var1  es la descripcion y var2 es el link-->
+                                    {% if ls.tipo_segmento.id|stringformat:"s" == '5' %}
+                                     <div class="row">
+                                        <div class="col-12">
+                                          {{ls.var1}}
+                                       
+                                        </div>
+                                        <br>
+                                     </div>
+
+                                     <div class="row">
+                                      <div class="col-12">                                        
+                                        <a href="{{ls.var2}}"> link al archivo</a>                                                                      
+                                      </div>
+                                   </div> 
+                                   {% endif %}
+
+
+                                    <!--tipo de segmento imatgen id==4 , var1  es la descripcion y var2 es el link-->
+                                    {% if ls.tipo_segmento.id|stringformat:"s" == '4' %}
+                                     <div class="row">
+                                        <div class="col-12">
+                                          {{ls.var1}}
+                                          <br>
+                                        </div>
+                                     </div>
+
+                                     <div class="row">
+                                      <div class="col-12">                                        
+                                        <a href="{{ls.var2}}"> link a imagen</a>                                                                      
+                                      </div>
+                                   </div> 
+                                   {% endif %}
+
+
+                                </div>
+                                <div class="row justify-content-md-center card-footer">
+                                  <div class="col-8">
+                                    {{ls.fecha_date}}
+                                  </div>
+
+                                  {% for lc in listado_colaboradores %}
+                                  {% if lc.usuario == usuario_conectado %}
+                                    <!-- revisar tipo de permiso para propietario-->
+                                    {% if lc.tipo_permiso.id|stringformat:"s" == '1' %}
+                                      
+                                        <div class="col-2">
+                                          <button type="button" class="btn btn-default " aria-label="Left Align" data-toggle="modal" data-target="#ModalEditarSegmento{{ls.id}}" >
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                          </button>
+                                        </div>
+                                          
+                                        <div class="col-2">
+                                          <button type="button" class="btn btn-default " aria-label="Left Align" data-toggle="modal" data-target="#ModalBorrarSegmento{{ls.id}}" >
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                                          </button>
+                                        </div>                                                                                                                                       
+                                    {% endif %}                       
+                                  {% endif %}
+                                {% endfor %}
+                                   
+                                </div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                  </div>
+            
+              </div>
+            
+            </div>
+                  
+         
+
+          </div>
+
+          <!-- contenido de pestaña colaboraciones-->
+          <div class="tab-pane fade" id="colaboraciones" role="tabpanel" aria-labelledby="colaboraciones-tab">
+              <div class="row justify-content-md-center">
+                <div class="col-auto">
+                  <ul>
+                    {% for c in listado_colaboradores %}
+                        {% for u in usuarios_colaboraciones%}                              
+                          {% if c.usuario == u  %}
+                          
+                            {% for p in permisos %}
+                              {% if c.tipo_permiso == p %}                                    
+  
+                                <li>
+                                  <strong>{{u.nombre1}} {{u.apellido1}} </strong>
+                                  <a class="text-success" href="#" data-toggle="tooltip" title="{{p.descripcion_tipo_permiso}}">{{p.nombre_permiso}}</a>
+                                </li> 
+  
+                              {% endif %}
+                            {% endfor %}
+  
+                          {% endif %}  
+                        {% endfor %}                          
+                    {% endfor %}
+                  </ul>
+
+                <br>
+                </div>
+              </div>
+
+              <div class="row justify-content-md-center">
+                {% for lc in listado_colaboradores %}
+                {% if lc.usuario == usuario_conectado %}
+
+                 <!-- revisar tipo de permiso para propietario-->
+                 {% if lc.tipo_permiso.id|stringformat:"s" == '1' %}
+                    
+                 <div class="col-1">
+                      <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#exampleModalAgregarColaborador" >
+                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                      </button>
+                 </div>
+                        
+                 <div class="col-1">
+                      <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#exampleModalEliminarColaborador" >
+                        <span class="glyphicon glyphicon-minus" aria-hidden="true"> </span>
+                      </button>
+                </div>
+
+                <div class="col-1">
+                      <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#exampleModalEditarColaborador" >
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"> </span>
+                      </button>
+                </div>
+                    
+                
+                 {% endif %}
+                
+                {% endif %}
+            {% endfor %}
+
+              </div>
+
+
+          </div>
+                  
+
+          <!-- contenido de pestaña de herramientas-->              
+          <div class="tab-pane fade" id="herramientas" role="tabpanel" aria-labelledby="herramientas-tab">
+
+                    
+              <div class="row justify-content-md-center">
+                  <div class="col-auto">
+                    <lu>
+                      {% for hp in listado_herr_pro %}
+                         {% for h in listado_herramientas %}
+                           {% if h.id == hp.herramienta.id %}
+                               <li><strong>{{h.nombre_herramienta}}</strong></li>
+                           {% endif %}
+                         {% endfor %}
+                      {% endfor %} 
+                     </lu>  
+                     <br>  
+                  </div>
+              </div>
+  
+              <div class="row justify-content-md-center">
+             
+                {% for lc in listado_colaboradores %}
+                {% if lc.usuario == usuario_conectado %}
+                    <!-- revisar tipo de permiso para propietario-->
+                    {% if lc.tipo_permiso.id|stringformat:"s" == '1' or lc.tipo_permiso.id|stringformat:"s" == '3' %}
+                        
+                    <div class="col-1">
+                        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#ModalAgregarHerramientaProyecto" >
+                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                                
+                    <div>
+                        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#ModalAEliminarHerramientaProyecto" >
+                          <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                        </button>
+                    </div>
+                                    
+                                    
+                               
+                              
+                           
+                        {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              </div>  
+      
+      
+          </div>
+  
+
+
+      </div>     
+    </div>   
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal borrar proyecto -->
+<div class="modal fade" id="exampleModalBorrarProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Esta seguro que desea eliminar el proyecto <strong>{{proyecto_aux.nombre_proyecto}}</strong> </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
+          <div class="modal-body">
+              <form method="POST" class="post-form">{% csrf_token %}
+                  <label>se eliminaran todos los segmentos de este proyecto</label><br>
+                  <input type="hidden" id="modelo" name="modelo" value="proyecto">
+                  <input type="hidden" id="operacion" name="operacion" value="borrar">
+                  <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+                    
+                  <button class="btn bg-danger text-white " type='submit'>Borrar</button>                                                                             
+              </form>
+          </div>
+
+          <div class="modal-footer">                                                                              
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+      
+  </div>
+</div>
+
+<!-- Modal editar proyecto -->
+<div class="modal fade" id="exampleModalEditarProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Editando proyecto: <strong>{{proyecto_aux.nombre_proyecto}}</strong> </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
+          <div class="modal-body">
+              <form method="POST" class="post-form">{% csrf_token %}                  
+                  <input type="hidden" id="modelo" name="modelo" value="proyecto">
+                  <input type="hidden" id="operacion" name="operacion" value="editar">
+                  <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+                    {{form_edit_proyecto.as_p}}
+                  <button class="btn bg-warning text-dark " type='submit'>Guardar</button>                                                                             
+              </form>
+          </div>
+
+          <div class="modal-footer">                                                                              
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+      
+  </div>
+</div>
+
+
+<!-- Modal agregar colaborador -->
+<div class="modal fade" id="exampleModalAgregarColaborador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Agregar colaborador en proyecto <strong>{{proyecto_aux.nombre_proyecto}}</strong> </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
+          <div class="modal-body">
+              <form method="POST" class="post-form">{% csrf_token %}                  
+                  <input type="hidden" id="modelo" name="modelo" value="colaboracion">
+                  <input type="hidden" id="operacion" name="operacion" value="agregar">
+                  <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+
+                  
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Seleccione usuario</label>
+                    <select name="usuario" class="form-control form-control-lg" required>
+                      <option value="">Elija una opcion...</option>
+                      {% for u in listado_no_colaboradores %}   
+                        
+                          
+                              <option value="{{u.id}}">{{u.correo}}</option>
+                          
+                       
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Selecciona el tipo de permiso</label>
+                    <select name="tipo_permiso" class="form-control form-control-lg" required>
+                      <option value="">Elija una opcion...</option>
+                      {% for p in permisos %}
+                      <option value="{{p.id}}">{{p.nombre_permiso}}</option>
+                      {% endfor %}
+                      
+                    </select>
+                  </div>
+
+                
+
+                  <!-- se muestra error si no se encuentra-->
+                  <div class="form-group">
+                    <label for="exampleInputEmail1"></label>                    
+                  </div>
+                   
+                  <button class="btn bg-primary text-white " type='submit'>Agregar</button>                                                                             
+              </form>
+          </div>
+
+          <div class="modal-footer">                                                                              
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+      
+  </div>
+</div>
+
+
+<!-- Modal Eliminar colaborador -->
+<div class="modal fade" id="exampleModalEliminarColaborador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Eliminar colaborador de <strong>{{proyecto_aux.nombre_proyecto}}</strong> </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
+          <div class="modal-body">
+              <form method="POST" class="post-form">{% csrf_token %}                  
+                  <input type="hidden" id="modelo" name="modelo" value="colaboracion">
+                  <input type="hidden" id="operacion" name="operacion" value="borrar">
+                  <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+                
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Seleccione usuario</label>
+                    <select name="colaborador" class="form-control form-control-lg" required>
+                      <option value="">Elija una opcion...</option>
+                      {% for u in usuarios_colaboraciones %}                                                     
+                              <option value="{{u.id}}">{{u.correo}}</option>                                                 
+                      {% endfor %}
+                    </select>
+                  </div>   
+                  <small class="text-muted">Se eliminara al usuario del proyecto y se le quitaran todos los permisos </small>               
+            
+                  <!-- se muestra error si no se encuentra-->
+                  <div class="form-group">
+                    <label for="exampleInputEmail1"></label>                    
+                  </div>
+                   
+                  <button class="btn bg-danger text-white " type='submit'>Borrar</button>                                                                             
+              </form>
+          </div>
+
+          <div class="modal-footer">                                                                              
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+      
+  </div>
+</div>
+
+<!-- Modal Editar colaborador -->
+<div class="modal fade" id="exampleModalEditarColaborador" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Editar Permisos en <strong>{{proyecto_aux.nombre_proyecto}}</strong> </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
+          <div class="modal-body">
+              <form method="POST" class="post-form">{% csrf_token %}                  
+                  <input type="hidden" id="modelo" name="modelo" value="colaboracion">
+                  <input type="hidden" id="operacion" name="operacion" value="editar">
+                  <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+                
+                  <div class="row">
+                      <div class="col-6 form-group">
+                        <label for="exampleInputEmail1">Usuario</label>
+                        <select name="colaborador" class="form-control form-control-lg" required>
+                          <option value="">Elija una opcion...</option>
+                          {% for u in usuarios_colaboraciones %}                                                     
+                                  <option value="{{u.id}}">{{u.correo}}</option>                                                 
+                          {% endfor %}
+                        </select>
+                      </div>
+
+                      <div class="col-6 form-group">
+                        <label for="exampleInputEmail1">Tipo permiso</label>
+                        <select name="permiso" class="form-control form-control-lg" required>
+                          <option value="">Elija una opcion...</option>
+                          {% for p in permisos %}                                                     
+                                  <option value="{{p.id}}">{{p.nombre_permiso}}</option>                                                 
+                          {% endfor %}
+                        </select>
+                      </div>
+
+
+                  </div>
+
+
+
+
+
+                       
+                  
+                  
+
+                  <button class="btn bg-warning text-dark " type='submit'>Guardar</button>                                                                             
+              </form>
+          </div>
+
+          <div class="modal-footer">                                                                              
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+      
+  </div>
+</div>
+
+
+<!-- Modal Agregar Herramienta -->
+<div class="modal fade" id="ModalAgregarHerramientaProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Agregar herramienta en <strong>{{proyecto_aux.nombre_proyecto}}</strong> </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
+          <div class="modal-body">
+              <form method="POST" class="post-form">{% csrf_token %}                  
+                  <input type="hidden" id="modelo" name="modelo" value="herramientaProyecto">
+                  <input type="hidden" id="operacion" name="operacion" value="agregar">
+                  <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+                
+                  <div class="row">
+                      <div class="col-6 form-group">
+                        <label for="exampleInputEmail1">Herramientas</label>
+                        <select name="herramienta_id" class="form-control form-control-lg" required>
+                          <option value="">Elija una opcion...</option>
+                          {% for h in herramientas_usuario %}                                                     
+                                  <option value="{{h.id}}">{{h.nombre_herramienta}}</option>                                                 
+                          {% endfor %}
+                        </select>
+                      </div>                     
+                  </div>                  
+
+                  <button class="btn bg-warning text-dark " type='submit'>Agregar</button>                                                                             
+              </form>
+          </div>
+
+          <div class="modal-footer">                                                                              
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+      
+  </div>
+</div>
+
+
+<!-- Modal eliminar Herramienta -->
+<div class="modal fade" id="ModalAEliminarHerramientaProyecto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Eliminar herramienta en <strong>{{proyecto_aux.nombre_proyecto}}</strong> </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+
+          <div class="modal-body">
+              <form method="POST" class="post-form">{% csrf_token %}                  
+                  <input type="hidden" id="modelo" name="modelo" value="herramientaProyecto">
+                  <input type="hidden" id="operacion" name="operacion" value="borrar">
+                  <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+                
+                  <div class="row">
+                      <div class="col-6 form-group">
+                        <label for="exampleInputEmail1">Herramientas</label>
+                        <select name="herramienta_id" class="form-control form-control-lg" required>
+                          <option value="">Elija una opcion...</option>
+                          {% for hp in listado_herr_pro %}
+                              {% for h in listado_herramientas %}
+                                {% if h.id == hp.herramienta.id %}                                    
+                                    <option value="{{h.id}}">{{h.nombre_herramienta}}</option>
+                                {% endif %}
+                              {% endfor %}
+                          {% endfor %} 
+                          
+                        </select>
+                      </div>                     
+                  </div>                  
+
+                  <button class="btn bg-danger text-white " type='submit'>Borrar</button>                                                                             
+              </form>
+          </div>
+
+          <div class="modal-footer">                                                                              
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+      
+  </div>
+</div>
+
+<!-- Modal agregar segmento nuevo -->
+<div class="modal fade" id="ModalSegmentoCrear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Agregar segmento en <strong>{{proyecto_aux.nombre_proyecto}}</strong> </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            
+
+                <p>selecciona un tipo de segmento</p>
+
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#Texto">Texto</a></li>
+                  <li><a data-toggle="tab" href="#Video">Video</a></li>
+                  <li><a data-toggle="tab" href="#Imagen">Imagen</a></li>
+                  <li><a data-toggle="tab" href="#Archivo">Archivo</a></li>
+                  <li><a data-toggle="tab" href="#Codigo">Codigo</a></li>
+                </ul>
+                
+                <div class="tab-content">
+                  <!-- formulario para la creacion de un tipo texto-->
+                  <div id="Texto" class="tab-pane fade in active"> 
+                    <br>                   
+                    <p>Un segmento que contiene un parrafo de texto, de hasta 1000 caracteres</p>
+
+                    <form method="POST" class="post-form">{% csrf_token %}                  
+                      <input type="hidden" id="modelo" name="modelo" value="segmento">
+                      <input type="hidden" id="operacion" name="operacion" value="crear">
+                      <input type="hidden" id="tipo_segmento" name="tipo_segmento" value="texto">
+                      <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+
+                    
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Titulo</label>
+                          <input type="text" name="titular" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required>
+                        </div>
+                      
+                        <div class="form-group">
+                          <label for="exampleFormControlTextarea1">Descripcion</label>
+                          <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                        </div>
+                      
+                                    
+
+                        <button class="btn bg-primary text-white " type='submit'>Crear</button>                                                                             
+                    </form>
+
+
+                  </div>
+
+                    <!-- formulario para la creacion de un tipo video-->
+                  <div id="Video" class="tab-pane fade">
+                    <br>
+                    <p>un segmento que contiene una descripcion de texto y un enlace de video, esta seccion se encuentra en 
+                      construccion y por el momento solo trabaja con links de videos de youtube </p>
+                    <form method="POST" class="post-form">{% csrf_token %}                  
+                      <input type="hidden" id="modelo" name="modelo" value="segmento">
+                      <input type="hidden" id="operacion" name="operacion" value="crear">
+                      <input type="hidden" id="tipo_segmento" name="tipo_segmento" value="video">
+                      <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+
+                    
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Titulo</label>
+                          <input type="text" name="titular" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="exampleFormControlTextarea1">Descripcion</label>
+                          <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Link</label>
+                          <input type="text" name="link" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required>
+                          <small>click en copiar url del video en youtube y pega aqui</small>
+                        </div>
+                                    
+
+                        <button class="btn bg-primary text-white " type='submit'>Crear</button>                                                                             
+                    </form>
+                  </div>
+
+                  <div id="Imagen" class="tab-pane fade">
+                    <br>                  
+                    <p>un segmento que contiene una descripcion de texto y un enlace de  imagen, esta seccion se enucentra en 
+                      construccion y por el momento solo trabaja con links de imagenes en ... https://es.imgbb.com/
+                    </p>
+                    <form method="POST" class="post-form">{% csrf_token %}                  
+                      <input type="hidden" id="modelo" name="modelo" value="segmento">
+                      <input type="hidden" id="operacion" name="operacion" value="crear">
+                      <input type="hidden" id="tipo_segmento" name="tipo_segmento" value="imagen">
+                      <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+
+                    
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Titulo</label>
+                          <input type="text" name="titular" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleFormControlTextarea1">Descripcion</label>
+                          <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Enlace</label>
+                          <input type="text" name="link" class="form-control" id="formGroupExampleInput" placeholder="link de la imagen" required>
+                        </div>
+                      
+                                    
+
+                        <button class="btn bg-primary text-white " type='submit'>Crear</button>                                                                             
+                    </form>
+                  </div>
+
+                  <div id="Archivo" class="tab-pane fade">
+                    <br>                  
+                    <p>un segmento que contiene una descripcion de texto y un enlace de descarga de un archivo</p>
+                    <form method="POST" class="post-form">{% csrf_token %}                  
+                      <input type="hidden" id="modelo" name="modelo" value="segmento">
+                      <input type="hidden" id="operacion" name="operacion" value="crear">
+                      <input type="hidden" id="tipo_segmento" name="tipo_segmento" value="archivo">
+                      <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+
+                    
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Titulo</label>
+                          <input type="text"  name="titular" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="exampleFormControlTextarea1">Descripcion</label>
+                          <textarea class="form-control"  name="descripcion" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">direccion de archivo</label>
+                          <input type="text" class="form-control"  name="link" id="formGroupExampleInput" placeholder="archivo drive" required>
+                        </div>
+                      
+                                    
+
+                        <button class="btn bg-primary text-white " type='submit'>Crear</button>                                                                             
+                    </form>
+                  </div>
+
+                  <!-- formulario para la creacion de un tipo codigo-->
+                  <div id="Codigo" class="tab-pane fade">
+                    <br>                  
+                    <p>un segmento que contiene una descripcion de texto y un enlace a un archivo de codigo en github, este segmento se 
+                      encuentra en construccion y por el momento solo trabaja con links de archivos de github
+                    </p>
+                    <form method="POST" class="post-form">{% csrf_token %}                  
+                      <input type="hidden" id="modelo" name="modelo" value="segmento">
+                      <input type="hidden" id="operacion" name="operacion" value="crear">
+                      <input type="hidden" id="tipo_segmento" name="tipo_segmento" value="codigo">
+                      <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+
+                    
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Titulo</label>
+                          <input type="text"  name="titular" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="exampleFormControlTextarea1">Descripcion</label>
+                          <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="5" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Direccion de archivo</label>
+                          <input type="text" name="link" class="form-control" id="formGroupExampleInput" placeholder="direccion de archivo" required>
+                          <small><p>ejemplo: https://github.com/Roscow/pshowcase/blob/c9515855f2eb5dd1d.py</p> </small>
+                        </div>
+                      
+                                    
+
+                        <button class="btn bg-primary text-white " type='submit'>Crear</button>                                                                             
+                    </form>
+                  </div>
+
+                </div>
+        </div>
+
+        <div class="modal-footer">                                                                              
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+    </div>
+    
+</div>
+
+</div>
+
+  {% for ls in lista_segmentos %}
+
+      <!-- Modal eliminar segmento -->
+      <div class="modal fade" id="ModalBorrarSegmento{{ls.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar segmento <strong class="text-success"> {{ls.titular}}</strong> en <strong class="text-success">{{proyecto_aux.nombre_proyecto}}</strong> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="POST" class="post-form">{% csrf_token %}                  
+                        <input type="hidden" id="modelo" name="modelo" value="segmento">
+                        <input type="hidden" id="operacion" name="operacion" value="borrar">
+                        <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+                        <input type="hidden" id="id_segmento" name="id_segmento" value="{{ls.id}}">
+                                                        
+                        <button class="btn bg-danger text-white " type='submit'>Borrar</button>                                                                             
+                    </form>
+                </div>
+
+                <div class="modal-footer">                                                                              
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+            
+        </div>
+      </div>
+
+      <!-- editar segmento -->
+      <div class="modal fade" id="ModalEditarSegmento{{ls.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar segmento <strong class="text-infor" >{{ls.titular}} </strong> en <strong class="text-infor" >{{proyecto_aux.nombre_proyecto}}</strong> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="POST" class="post-form">{% csrf_token %}                  
+                        <input type="hidden" id="modelo" name="modelo" value="segmento">
+                        <input type="hidden" id="operacion" name="operacion" value="editar">
+                        <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
+                        <input type="hidden" id="id_segmento" name="id_segmento" value="{{ls.id}}">
+
+                        <!--tipo texto-->
+                        {% if ls.tipo_segmento|stringformat:"s" == '1' %}
+                        <input type="hidden" id="tipo_segmento" name="tipo_segmento" value="texto">
+                        <h4 class="modal-title" id="exampleModalLabel">Tipo Texto</strong> </h4>
+                        <br>
+                            <div class="form-group">
+                              <label for="formGroupExampleInput">Titulo</label>
+                              <input type="text" name="titular" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required value="{{ls.titular}}">
+                            </div>
+                          
+                            <div class="form-group">
+                              <label for="exampleFormControlTextarea1">Descripcion</label>
+                              <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3" required>{{ls.var1}}</textarea>
+                            </div>
+                        {% endif %}
+
+                        <!--tipo video -->
+                        {% if ls.tipo_segmento|stringformat:"s" == '2' %}
+                        <input type="hidden" id="tipo_segmento" name="tipo_segmento" value="video">
+                        <h4 class="modal-title" id="exampleModalLabel">Tipo Video</strong> </h4>
+                        <br>
+                          <div class="form-group">
+                            <label for="formGroupExampleInput">Titulo</label>
+                            <input type="text" name="titular" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required value="{{ls.titular}}">
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Descripcion</label>
+                            <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3" required>{{ls.var1}}</textarea>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="formGroupExampleInput">Link</label>
+                            <input type="text" name="link" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required value="{{ls.var2}}">
+                            <small>click en copiar url del video en youtube y pega aqui</small>
+                          </div>
+                        {% endif %}
+
+                        <!--tipo imagen -->
+                        {% if ls.tipo_segmento|stringformat:"s" == '4' %}
+                        <input type="hidden" id="tipo_segmento" name="tipo_segmento" value="imagen">
+                        <h4 class="modal-title" id="exampleModalLabel">Tipo Imagen</strong> </h4>
+                        <br>
+                            <div class="form-group">
+                              <label for="formGroupExampleInput">Titulo</label>
+                              <input type="text" name="titular" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required  value="{{ls.titular}}">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlTextarea1">Descripcion</label>
+                              <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3" required> {{ls.var1}}</textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                              <label for="formGroupExampleInput">Enlace</label>
+                              <input type="text" name="link" class="form-control" id="formGroupExampleInput" placeholder="link de la imagen" required  value="{{ls.var2}}">
+                            </div>                    
+                        {% endif %}
+
+                        <!--tipo codigo-->
+                        {% if ls.tipo_segmento|stringformat:"s" == '3' %}
+                        <input type="hidden" id="tipo_segmento" name="tipo_segmento" value="codigo">
+                        <h4 class="modal-title" id="exampleModalLabel">Tipo Codigo</strong> </h4>
+                        <br>
+                            <div class="form-group">
+                              <label for="formGroupExampleInput">Titulo</label>
+                              <input type="text"  name="titular" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required  value="{{ls.titular}}">
+                            </div>
+
+                            <div class="form-group">
+                              <label for="exampleFormControlTextarea1">Descripcion</label>
+                              <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="5" required>{{ls.var1}}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="formGroupExampleInput">Direccion de archivo</label>
+                              <input type="text" name="link" class="form-control" id="formGroupExampleInput" placeholder="direccion de archivo" required  value="{{ls.var2}}">
+                              <small><p>ejemplo: https://github.com/Roscow/pshowcase/blob/c9515855f2eb5dd1d.py</p> </small>
+                            </div>
+                        {% endif %}
+                                     
+                         <!--tipo archivo-->
+                         {% if ls.tipo_segmento|stringformat:"s" == '5' %}
+                         <input type="hidden" id="tipo_segmento" name="tipo_segmento" value="archivo">
+                         <h4 class="modal-title" id="exampleModalLabel">Tipo Archivo</strong> </h4>
+                         <br>
+                            <div class="form-group">
+                              <label for="formGroupExampleInput">Titulo</label>
+                              <input type="text"  name="titular" class="form-control" id="formGroupExampleInput" placeholder="Nombre segmento" required  value="{{ls.titular}}">
+                            </div>
+
+                            <div class="form-group">
+                              <label for="exampleFormControlTextarea1">Descripcion</label>
+                              <textarea class="form-control"  name="descripcion" id="exampleFormControlTextarea1" rows="3" required>{{ls.var1}}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="formGroupExampleInput">direccion de archivo</label>
+                              <input type="text" class="form-control"  name="link" id="formGroupExampleInput" placeholder="archivo drive" required  value="{{ls.var2}}">
+                            </div>
+                      
+                        {% endif %}
+                        <button class="btn bg-warning text-dark " type='submit'>Guardar</button>                                                                             
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">                                                                              
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+            
+        </div>
+      </div>
+
+  {% endfor %}
+
+{% endblock %}

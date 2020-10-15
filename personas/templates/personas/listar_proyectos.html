@@ -1,0 +1,123 @@
+{% extends 'personas/busqueda_proyectos.html' %}
+
+
+
+
+{% block listado_proyectos %}
+
+     <!-- seccion de titulo-->
+   <div class="row justify-content-md-center">
+    <div class="col-auto">
+        <h2>{{titulo}}</h2>      
+    </div>
+  </div>
+
+
+    {% if lista_proyectos %}
+        {% for p in lista_proyectos %}
+            <div class="card text-center bg-info">
+
+                <div class="card-header bg-dark text-white">
+                <strong>{{p.nombre_proyecto}}</strong>
+                </div>
+
+                <div class=" card-body">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img class="icon2" src="https://img.icons8.com/plasticine/100/000000/folder-invoices.png"/>                                       
+                        </div>
+
+                        <div class="col-md-5 text-white">
+                            {% if p.reseña %}                            
+                                {{p.reseña}}
+                            {% else %}
+                                
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        {% for hp in lista_herram_proy %}
+                                            {% if hp.proyecto == p %}
+                                                {% for h in lista_herramientas  %}
+                                                    {% if h == hp.herramienta %}   
+                                                    <div class="col-12">                             
+                                                        <span class="badge badge-warning bg-warning text-dark my-2 ">{{h.nombre_herramienta}}</span>
+                                                    </div>  
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        {% for hp in lista_herram_proy %}
+                                            {% if hp.proyecto == p %}
+                                                {% for h in lista_herramientas  %}
+                                                    {% if h == hp.herramienta %}    
+                                                        {% for c in lista_categorias %}
+                                                            {% if h.categoria == c %}
+                                                            <div class="col-12">
+                                                                <span class="badge badge-primary  bg-primary my-2 "> {{c.nombre_categoria}}</span>                                                       
+                                                            </div>
+                                                            {% endif %}
+                                                        {% endfor %}                                               
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{% url 'personas:detalle_proyecto2' p.id %}" class="btn btn-dark">Detalle</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer text-white ">
+                    <div class="row">
+                        <div class="col-8">
+                            {{p.fecha_creacion}}
+                        </div>
+
+                        <div class="colo-2">
+                            <img class="icon data-toggle="tooltip" data-placement="right" title="Colaboradores" src="https://www.flaticon.com/svg/static/icons/svg/36/36178.svg" alt="Colaboraciones">  
+                            {% for t in tupla_datos %}
+                                {% if p == t.0 %}
+                                    {{t.1}}
+                                {% endif %}
+                            {% endfor%}
+                        </div>
+
+                        <div class="col-2">
+                            <img class="icon data-toggle="tooltip" data-placement="right" title="Segmentos"" src="https://img.icons8.com/plasticine/100/000000/puzzle.png"/>
+                            {% for t in tupla_datos %}
+                                {% if p == t.0 %}
+                                    {{t.2}}
+                                {% endif %}
+                            {% endfor%}
+                        </div>
+                        
+                    </div>           
+                </div>
+
+            </div>
+            <br><br>
+        {% endfor %}
+    {% else %}
+            no hay proyectos disponibles
+    {% endif %}
+
+
+{% endblock %}
