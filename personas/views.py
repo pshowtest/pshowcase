@@ -86,7 +86,11 @@ def recepcion_formulario(request):
             if request.POST.get('operacion') =='crear':     
                 is_used=True            
                 usuario_aux = Usuario.objects.get(id= request.POST.get('id_usuario'))
-                pro_aux = Proyecto.objects.create(nombre_proyecto=request.POST.get('nombre_proyecto'),fecha_creacion=datetime.now() )
+                pro_aux = Proyecto.objects.create(
+                    nombre_proyecto=request.POST.get('nombre_proyecto'),
+                    reseña=request.POST.get('reseña'),
+                    fecha_creacion=datetime.now() 
+                    )
                 tipo_permiso_aux = Tipo_permiso.objects.get(nombre_permiso="propietario")
                 colaboracion = Colaboracion.objects.create(
                     usuario = usuario_aux, 
