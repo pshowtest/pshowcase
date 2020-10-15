@@ -205,8 +205,7 @@ def index(request):
 
 def detalle_proyecto2(request, id_proyecto):  
     recepcion_formulario(request)  
-    detalle_segmentos(request, id_proyecto)
-
+    
     proyecto_aux2 = Proyecto.objects.get(id=id_proyecto)
     lista_segmentos = list()
     tipos_segmentos = Tipo_segmento.objects.all()
