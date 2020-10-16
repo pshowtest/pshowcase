@@ -69,6 +69,20 @@ class proyecto_create_form(forms.ModelForm):
     class Meta:
         model = Proyecto
         fields = ('nombre_proyecto', 'reseña') 
+        widgets ={
+            'nombre_proyecto': forms.TextInput(
+                attrs ={
+                    'class':'form-control',
+                    'placeholder':'Un nombre creativo para tu proyecto'
+                }
+            ),
+            'reseña':forms.Textarea(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Agrega una breve descripcion de sobre que se trata tu proyecto'          
+                }
+            )
+        }
 
 
 class proyecto_edit_form(forms.ModelForm):
