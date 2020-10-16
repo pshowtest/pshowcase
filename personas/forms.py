@@ -69,6 +69,7 @@ class proyecto_create_form(forms.ModelForm):
     class Meta:
         model = Proyecto
         fields = ('nombre_proyecto', 'reseña') 
+        labels = {'nombre_proyecto':'Nombre'}
         widgets ={
             'nombre_proyecto': forms.TextInput(
                 attrs ={

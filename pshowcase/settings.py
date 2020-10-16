@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%0&p$3*dvy#966!y^f5bh&t8-k7q^ys%2fyw+f-5=)6p0!dmwv'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config( 'DEBUG',cast=bool)
 
 ALLOWED_HOSTS = ['www.pshowcase.com','127.0.0.1']
 
