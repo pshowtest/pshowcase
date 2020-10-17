@@ -78,8 +78,7 @@ def recepcion_formulario(request):
             perfil_aux.descripcion =  request.POST.get('descripcion')
             perfil_aux.alma_mater =  request.POST.get('alma_mater')
             perfil_aux.carrera =  request.POST.get('carrera')
-            perfil_aux.save()
-            HttpResponse('flag')
+            perfil_aux.save()           
             return redirect('/') 
 
         #proyectos
