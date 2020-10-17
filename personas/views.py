@@ -71,7 +71,15 @@ def recepcion_formulario(request):
                 #return HttpResponse( categoria_aux.nombre_categoria)                                           
                 return redirect('/')
         
-    
+        #perfil
+        if request.POST.get('modelo') == 'perfil':            
+            id_perfil = request.POST.get('id_perfil')
+            perfil_aux = Perfil.objects.get(id=id_perfil)
+            perfil_aux.descripcion =  request.POST.get('descripcion')
+            perfil_aux.alma_mater =  request.POST.get('alma_mater')
+            perfil_aux.carrera =  request.POST.get('carrera')
+            perfil_aux.save()           
+            return redirect('/') 
 
         #proyectos
         if request.POST.get('modelo') == 'proyecto':
