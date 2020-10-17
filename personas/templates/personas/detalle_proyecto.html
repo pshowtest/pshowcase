@@ -442,7 +442,18 @@
                   <input type="hidden" id="modelo" name="modelo" value="proyecto">
                   <input type="hidden" id="operacion" name="operacion" value="editar">
                   <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
-                    {{form_edit_proyecto.as_p}}
+                  
+                    <div class="form-group">
+                      <label for="nombre_proyecto">nombre</label>
+                      <input type="text" class="form-control" name="nombre_proyecto" id="nombre_proyecto" value="{{proyecto_aux.nombre_proyecto}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reseña">Reseña</label>
+                        <textarea class="form-control" name="reseña" id="reseña" rows="4">{{proyecto_aux.reseña}}</textarea>
+                    </div> 
+                   
+
                   <button class="btn bg-warning text-dark " type='submit'>Guardar</button>                                                                             
               </form>
           </div>

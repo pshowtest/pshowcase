@@ -291,7 +291,13 @@
                     <input type="hidden" id="categoria_id" name="categoria_id" value="{{c.id}}">
                     <input type="hidden" id="operacion" name="operacion" value="editar">
                     <input type="hidden" id="modelo" name="modelo" value="categoria">
-                    {{form_edit_categorias.as_p}}                        
+                    
+                    <div class="form-group">
+                        <label for="nombre_categoria">Nombre</label>
+                        <input type="text" name="nombre_categoria" class="form-control" id="nombre_categoria" aria-describedby="emailHelp" value="{{c.nombre_categoria}}">                      
+                    </div>
+                    
+
                     <button type="submit" class="btn btn-warning text-white mb-4">Guardar</button>
                                                                            
                 </form>
@@ -377,7 +383,10 @@
                      <input type="hidden" id="herramienta_id" name="herramienta_id" value="{{h.id}}">
                      <input type="hidden" id="operacion" name="operacion" value="editar">
                      <input type="hidden" id="modelo" name="modelo" value="herramienta">
-                     {{form_edit_herramientas.as_p}}                         
+                     <div class="form-group">
+                        <label for="nombre_herramienta">Nombre</label>
+                        <input type="text" name="nombre_herramienta" class="form-control" id="nombre_herramienta" aria-describedby="emailHelp" value="{{h.nombre_herramienta}}">                      
+                    </div>                       
                      <button type="submit" class="btn btn-warning text-white mb-4">Guardar</button>     
                      
 
@@ -466,8 +475,24 @@
                 <form method="POST" class="post-form"  autocomplete="off" >{% csrf_token %}
                     <input type="hidden" id="id_perfil" name="id_perfil" value="{{perfil_usuario.id}}">
                     <input type="hidden" id="modelo" name="modelo" value="perfil">
-                    {{form_edit_perfil.as_p}}                          
-                    <button type="submit" class="btn btn-warning text-dark mb-4" data-dismiss="modal">Guardar</button>                                                       
+                 
+                    <div class="form-group">
+                        <label for="alma_mater">Alma mater</label>
+                        <input type="text" class="form-control" name="alma_mater" id="alma_mater" value="{{perfil_usuario.alma_mater}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="carrera">Carrera</label>
+                        <input type="text" class="form-control" name="carrera" id="carrera" value="{{perfil_usuario.carrera}}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripcion</label>
+                        <textarea class="form-control" name="descripcion" id="descripcion" rows="3">{{perfil_usuario.descripcion}}</textarea>
+                    </div>                    
+
+                    <button type="submit" class="btn btn-warning text-dark mb-4">Guardar</button>      
+
                 </form>
             </div>
 
