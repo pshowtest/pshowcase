@@ -63,7 +63,6 @@ class herramienta_edit_form(forms.ModelForm):
             ),
         }
 
-
 class herramienta_delete_form(forms.ModelForm):
 
     class Meta:
@@ -92,8 +91,27 @@ class perfil_edit_form(forms.ModelForm):
 
     class Meta:
         model = Perfil
-        fields = ('descripcion','alma_mater', 'carrera', )
-
+        fields = ('descripcion','alma_mater', 'carrera', )        
+        widgets ={
+            'alma_mater': forms.TextInput(
+                attrs ={
+                    'class':'form-control',
+                    'placeholder':'ej: Hardvard '
+                }
+            ),
+            'carrera': forms.TextInput(
+                attrs ={
+                    'class':'form-control',
+                    'placeholder':'ej: Marketing'
+                }
+            ),
+            'descripcion':forms.Textarea(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Cuenta algo interesante sobre ti mismo'          
+                }
+            )
+        }
 
 
 
@@ -126,3 +144,18 @@ class proyecto_edit_form(forms.ModelForm):
     class Meta:
         model = Proyecto
         fields = ('nombre_proyecto', 'reseña')
+        labels = {'nombre_proyecto':'Nombre'}
+        widgets ={
+            'nombre_proyecto': forms.TextInput(
+                attrs ={
+                    'class':'form-control',
+                    'placeholder':'Un nombre creativo para tu proyecto'
+                }
+            ),
+            'reseña':forms.Textarea(
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Agrega una breve descripcion de sobre que se trata tu proyecto'          
+                }
+            )
+        }

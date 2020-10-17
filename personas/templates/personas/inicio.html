@@ -466,8 +466,8 @@
                 <form method="POST" class="post-form"  autocomplete="off" >{% csrf_token %}
                     <input type="hidden" id="id_perfil" name="id_perfil" value="{{perfil_usuario.id}}">
                     <input type="hidden" id="modelo" name="modelo" value="perfil">
-                    {{form_edit_perfil.as_p}}    
-                    <button type='submit'>Save</button>                                                           
+                    {{form_edit_perfil.as_p}}                          
+                    <button type="submit" class="btn btn-warning text-dark mb-4" data-dismiss="modal">Guardar</button>                                                       
                 </form>
             </div>
 

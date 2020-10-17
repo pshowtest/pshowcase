@@ -400,14 +400,22 @@
 
           <div class="modal-body">
               <form method="POST" class="post-form">{% csrf_token %}
-                  <label>se eliminaran todos los segmentos de este proyecto</label><br>
+                  
                   <input type="hidden" id="modelo" name="modelo" value="proyecto">
                   <input type="hidden" id="operacion" name="operacion" value="borrar">
                   <input type="hidden" id="id_proyecto" name="id_proyecto" value="{{proyecto_aux.id}}">
-                    
-                  <button class="btn bg-danger text-white " type='submit'>Borrar</button>                                                                             
+
+                  <div class="form-check mb-4">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" required>                            
+                    <small>se eliminaran todos los datos de este proyecto</small>
+                  </div> 
+
+                  <button class="btn bg-danger text-white " type='submit'>Borrar</button>  
+                                                                                             
               </form>
           </div>
+
+          
 
           <div class="modal-footer">                                                                              
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -539,8 +547,11 @@
                       {% endfor %}
                     </select>
                   </div>   
-                  <small class="text-muted">Se eliminara al usuario del proyecto y se le quitaran todos los permisos </small>               
-            
+                                
+                  <div class="form-check mb-4">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" required>                            
+                    <small class="text-muted">Se eliminara al usuario del proyecto y se le quitaran todos los permisos </small> 
+                  </div> 
                   <!-- se muestra error si no se encuentra-->
                   <div class="form-group">
                     <label for="exampleInputEmail1"></label>                    
@@ -695,9 +706,14 @@
                               {% endfor %}
                           {% endfor %} 
                           
-                        </select>
+                        </select>                        
                       </div>                     
-                  </div>                  
+                  </div>   
+                  
+                  <div class="form-check mb-4">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" required>                            
+                    <small class="text-muted">Se eliminara la herramienta de este proyecto</small> 
+                  </div>
 
                   <button class="btn bg-danger text-white " type='submit'>Borrar</button>                                                                             
               </form>
