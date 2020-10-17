@@ -9,6 +9,15 @@ class categoria_edit_form(forms.ModelForm):
     class Meta:
         model = Categoria
         fields = ('nombre_categoria',)
+        labels= {'nombre_categoria':'Nombre'}
+        widgets={
+            'nombre_categoria': forms.TextInput(
+                attrs ={
+                    'class':'form-control',
+                    'placeholder':'ej: Edicion de imagen'
+                }
+            ),
+        }
 
 
 class categoria_delete_form(forms.ModelForm):
@@ -23,6 +32,15 @@ class categoria_create_form(forms.ModelForm):
     class Meta:
         model = Categoria
         fields = ('nombre_categoria',)
+        labels= {'nombre_categoria':'Nombre'}
+        widgets={
+            'nombre_categoria': forms.TextInput(
+                attrs ={
+                    'class':'form-control',
+                    'placeholder':'ej: Edicion de imagenes'
+                }
+            ),
+        }
 
 
 
@@ -35,6 +53,15 @@ class herramienta_edit_form(forms.ModelForm):
     class Meta:
         model = Herramienta
         fields = ('nombre_herramienta',)
+        labels= {'nombre_herramienta':'Nombre'}
+        widgets={
+            'nombre_herramienta': forms.TextInput(
+                attrs ={
+                    'class':'form-control',
+                    'placeholder':'ej: Photoshop'
+                }
+            ),
+        }
 
 
 class herramienta_delete_form(forms.ModelForm):
@@ -48,7 +75,15 @@ class herramienta_create_form(forms.ModelForm):
     class Meta:
         model = Herramienta
         fields = ('nombre_herramienta',)
-
+        labels= {'nombre_herramienta':'Nombre'}
+        widgets={
+            'nombre_herramienta': forms.TextInput(
+                attrs ={
+                    'class':'form-control',
+                    'placeholder':'ej: paint'
+                }
+            ),
+        }
 
 
 #formulario de perfil

@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-
+from decouple import config
 from pathlib import Path
 import os
 
@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['www.pshowcase.com','127.0.0.1']
 
 
 #configuracion de correo
-from decouple import config
+
 
 
 EMAIL_USE_TLS = True

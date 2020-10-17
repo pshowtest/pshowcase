@@ -291,16 +291,23 @@
                     <input type="hidden" id="categoria_id" name="categoria_id" value="{{c.id}}">
                     <input type="hidden" id="operacion" name="operacion" value="editar">
                     <input type="hidden" id="modelo" name="modelo" value="categoria">
-                    {{form_edit_categorias.as_p}}    
-                    <button type='submit'>Save</button>                                                           
+                    {{form_edit_categorias.as_p}}                        
+                    <button type="submit" class="btn btn-warning text-white mb-4 col-2">Guardar</button>
+                                                                           
                 </form>
                 <!-- formulario para borrar la categoria-->
                 <form method="POST" class="post-form"  autocomplete="off" >{% csrf_token %}
                    <input type="hidden" id="categoria_id" name="categoria_id" value="{{c.id}}">
                    <input type="hidden" id="operacion" name="operacion" value="borrar">
                    <input type="hidden" id="modelo" name="modelo" value="categoria">
-                   {{form_delete_categoria.as_p}}
-                   <button type='submit'>Borrar</button>   
+                   {{form_delete_categoria.as_p}}                    
+                   <button type="submit" class="btn btn-danger text-white mb-4 col-2">Borrar</button>   
+                        
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" required>                            
+                            <small>se eliminara todas las herramientas dentro de esta categoria</small>
+                        </div>                
+
                 </form>
                  
              </div>
@@ -333,8 +340,8 @@
                     <input type="hidden" id="id_usuario" name="id_usuario" value="{{usuario_conectado.id}}">
                    <input type="hidden" id="operacion" name="operacion" value="crear">
                    <input type="hidden" id="modelo" name="modelo" value="categoria">
-                   {{form_create_categoria.as_p}}    
-                   <button type='submit'>Crear</button>                                                           
+                   {{form_create_categoria.as_p}}                       
+                   <button type="submit" class="btn btn-primary mb-4 col-2">Crear</button>                                                         
                </form>                              
             </div>
 
@@ -370,8 +377,10 @@
                      <input type="hidden" id="herramienta_id" name="herramienta_id" value="{{h.id}}">
                      <input type="hidden" id="operacion" name="operacion" value="editar">
                      <input type="hidden" id="modelo" name="modelo" value="herramienta">
-                     {{form_edit_herramientas.as_p}}    
-                     <button type='submit'>Save</button>                                                           
+                     {{form_edit_herramientas.as_p}}                         
+                     <button type="submit" class="btn btn-warning text-white mb-4 col-2">Guardar</button>     
+                     
+
                  </form>
                  <!-- formulario para borrar la herramienta-->
                  <form method="POST" class="post-form"  autocomplete="off">{% csrf_token %}
@@ -379,7 +388,14 @@
                     <input type="hidden" id="operacion" name="operacion" value="borrar">
                     <input type="hidden" id="modelo" name="modelo" value="herramienta">
                     {{form_delete_herramienta.as_p}}
-                    <button type='submit'>Borrar</button>   
+                                       
+                        <button type="submit" class="btn btn-danger text-white mb-4 col-2">Borrar</button>   
+                        
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                            
+                            <small>se eliminara esta herramienta de todos los proyectos</small>
+                        </div> 
                  </form>
              </div>
 
@@ -400,7 +416,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Crear nueva categoria </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Crear nueva herramienta </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -414,13 +430,14 @@
                    
                    {{form_create_herramienta.as_p}}    
                    <label for="exampleFormControlFile1">¿Donde guardar?</label>
-                    <select name="categoria" class="form-control" id="exampleFormControlFile1" required >
+                    <select name="categoria" class="form-control mb-4" id="exampleFormControlFile1" required >
                         <option value="">Selecciona una Categoria</option>
                         {% for c in categorias_usuario %}
                             <option value="{{c.id}}">{{c.nombre_categoria}}</option>
                         {% endfor %}
                     </select>
-                   <button type='submit'>Crear</button>                                                           
+                   
+                   <button type="submit" class="btn btn-primary mb-4 col-2">Crear</button>                                                       
                </form>                              
             </div>
 
