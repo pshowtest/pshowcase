@@ -104,7 +104,8 @@ class Perfil(models.Model):
     descripcion =  models.CharField(max_length=200 ,null=True)
     alma_mater = models.CharField(max_length=200,null=True)
     carrera = models.CharField(max_length=200,null=True)
-    retrato = StdImageField(upload_to='path/to/img', null=True, blank=True, variations={'thumbnail': (100, 100, True)})
+    retrato = StdImageField(upload_to='avatar/' , null=True, blank=True, variations={'thumbnail': (100, 100, True)})
+    #retrato = models.ImageField(null=True, blank=True)
     fecha_creacion = models.DateTimeField()
 
 

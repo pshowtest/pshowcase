@@ -3,6 +3,8 @@ from stdimage import StdImageField
 from .models import Categoria, Herramienta, Perfil, Proyecto
 
 
+
+
 #formularios de categoria
 class categoria_edit_form(forms.ModelForm):
 
@@ -91,7 +93,7 @@ class perfil_edit_form(forms.ModelForm):
 
     class Meta:
         model = Perfil
-        fields = ('descripcion','alma_mater', 'carrera', )        
+        fields = ('descripcion','alma_mater', 'carrera', 'retrato' )        
         widgets ={
             'alma_mater': forms.TextInput(
                 attrs ={
