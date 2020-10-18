@@ -508,7 +508,7 @@
                 <form method="POST" class="post-form"  autocomplete="off" enctype="multipart/form-data" >{% csrf_token %}
                     <input type="hidden" id="id_perfil" name="id_perfil" value="{{perfil_usuario.id}}">
                     <input type="hidden" id="modelo" name="modelo" value="perfil">
-                 <!--
+                 
                     <div class="form-group">
                         <label for="alma_mater">Alma mater</label>
                         <input type="text" class="form-control" name="alma_mater" id="alma_mater" value="{{perfil_usuario.alma_mater}}">
@@ -523,8 +523,8 @@
                         <label for="descripcion">Descripcion</label>
                         <textarea class="form-control" name="descripcion" id="descripcion" rows="3">{{perfil_usuario.descripcion}}</textarea>
                     </div>                    
--->
-                        {{form_edit_perfil}}
+
+                        {{form_edit_perfil.retrato}}
                     <button type="submit" class="btn btn-warning text-dark mb-4">Guardar</button>      
                     
                 </form>
